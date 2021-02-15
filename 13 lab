@@ -1,0 +1,69 @@
+#include <iostream>
+#include <ctime>
+#include <conio.h>
+
+
+void InitArrayRandomly(int* src_arr, int size)
+{
+	for (int i = 0; i < size; i++)
+	{
+		src_arr[i] = rand() % (size * 2) - size;
+	}
+}
+
+void ShowArray(int* arr, int arrSize)
+{
+	for (int i = 0; i < arrSize; i++)
+	{
+		std::cout << arr[i] << " ";
+	}
+}
+
+void GetOddsArray(int* arr, int arrSize)
+{
+	int* dest_arr = NULL;
+	int counter = 0;
+
+	for (int i = 0; i < arrSize; i++)
+	{
+		if (i % 2 == 0 && arr[i] % 2 == 0)
+			counter++;
+	}
+
+	dest_arr = new int[counter];
+	counter = 0;
+
+	for (int i = 0; i < arrSize; i++)
+	{
+		if (arr[i] % 2 == 0 && i % 2 == 0)
+		{
+			dest_arr[counter] = arr[i];
+			counter++;
+		}
+	}
+
+
+	ShowArray(dest_arr, counter);
+
+	delete[] dest_arr;
+}
+
+int main()
+{
+	srand(time(NULL));
+
+	const int arr_size = 10;
+	int* arr = new int[arr_size];
+
+	std::cout << "First Array :" << std::endl;
+	InitArrayRandomly(arr, arr_size);
+	ShowArray(arr, arr_size);
+
+	std::cout << std::endl;
+
+	std::cout << "Second Array :" << std::endl;
+
+	GetOddsArray(arr, arr_size);
+
+	delete[] arr;
+}
